@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help Raven Find Her Blanket</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- START SCREEN -->
+  <section id="startScreen" class="screen screen-start" aria-label="Start Screen">
+    <div class="top-icons" aria-hidden="true">
+      <div class="icon-badge">🔈</div>
+      <div class="icon-badge">🎵</div>
+    </div>
+
+    <div class="title-wrap">
+      <h1 class="game-title">Raven’s Cozy Quest</h1>
+      <p class="game-subtitle">Help Raven find her blanket!</p>
+    </div>
+
+    <div class="start-hero">
+      <div class="hero-bubble">
+        <div class="bubble cloud">
+          Tap <b>START</b> to play!
+        </div>
+      </div>
+    </div>
+
+    <div class="start-actions">
+      <button id="startBtn" class="big-btn" type="button">START</button>
+      <button id="creditsBtn" class="small-btn" type="button">CREDITS</button>
+    </div>
+
+    <div id="creditsPanel" class="credits" hidden>
+      <p><b>Credits</b></p>
+      <p>Made for kids (ages 3–8).</p>
+      <p>Gentle play. No timers. No wrong answers.</p>
+      <button id="closeCreditsBtn" class="small-btn" type="button">Close</button>
+    </div>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <main id="gameScreen" class="screen screen-game" hidden aria-label="Game Screen">
+    <header class="game-header">
+      <h2>🎮 Help Raven Find Her Blanket</h2>
+      <p class="instructions">Tap a picture. If it’s the blanket, you win! (No rush.)</p>
+    </header>
+
+    <!-- TRY AGAIN RAVEN (shrug) + message -->
+    <div class="feedback">
+      <img id="ravenMood" class="raven-mood" src="./images/raven-shrug.png" alt="Raven shrugging" />
+      <div id="message" class="message" aria-live="polite">Where is Raven’s blanket?</div>
+    </div>
+
+    <div class="grid" id="gameGrid" aria-label="Game choices"></div>
+
+    <div class="footer-actions">
+      <button id="shuffleBtn" class="small-btn" type="button">🔀 Mix Again</button>
+      <button id="backBtn" class="small-btn" type="button">⬅ Back</button>
+    </div>
+  </main>
+
+  <!-- WIN OVERLAY (ONLY DANCING RAVEN) -->
+  <div id="winOverlay" class="overlay" hidden role="dialog" aria-label="You win">
+    <div class="overlay-card">
+      <h3>🎉 Great job!</h3>
+      <p>You found Raven’s blanket!</p>
+
+      <div class="win-media">
+        <img class="win-gif" src="./images/raven-dance.gif" alt="Raven dancing happily" />
+      </div>
+
+      <button id="playAgainBtn" class="big-btn" type="button">Play Again</button>
+      <button id="closeWinBtn" class="small-btn" type="button">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
