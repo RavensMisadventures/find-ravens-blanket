@@ -1,4 +1,9 @@
-/* GENERAL */
+/* IMPORTANT FIX */
+[hidden] {
+  display: none !important;
+}
+
+/* BASE */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
@@ -12,15 +17,7 @@ body {
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
-/* START SCREEN */
-.title-wrap {
-  margin-bottom: 16px;
-}
-
+/* START */
 .game-title {
   font-size: 2.2rem;
 }
@@ -42,25 +39,25 @@ body {
 }
 
 /* BUTTONS */
-.big-btn, .small-btn {
-  border: none;
-  border-radius: 999px;
-  padding: 12px 18px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
 .big-btn {
   background: #ffdca8;
   color: #333;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  cursor: pointer;
 }
 
 .small-btn {
   background: rgba(255,255,255,0.2);
   color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
 }
 
-/* GAME GRID */
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -72,12 +69,11 @@ body {
 .grid button {
   border: none;
   border-radius: 18px;
-  padding: 0;
   background: #f6f2ee;
   cursor: pointer;
 }
 
-/* LEVEL 2 FLIP CARDS */
+/* LEVEL 2 FLIP */
 .flip-card {
   position: relative;
   overflow: hidden;
@@ -112,10 +108,11 @@ body {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.45);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
 }
 
 .overlay-card {
@@ -123,5 +120,5 @@ body {
   color: #333;
   padding: 24px;
   border-radius: 20px;
-  max-width: 300px;
+  max-width: 320px;
 }
