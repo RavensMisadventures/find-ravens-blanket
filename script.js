@@ -1,82 +1,134 @@
-const items = [
-  { name:"Feather", img:"./images/feather.png", isBlanket:false },
-  { name:"Leaf", img:"./images/leaf.png", isBlanket:false },
-  { name:"Blanket", img:"./images/blanket.png", isBlanket:true },
-  { name:"Rock", img:"./images/rock.png", isBlanket:false },
-  { name:"Sock", img:"./images/sock.png", isBlanket:false },
-  { name:"Cookie", img:"./images/cookie.png", isBlanket:false }
+const startScreen = document.getElementById("startScreen");
+const gameScreen = document.getElementById("gameScreen");
+const gameGrid = document.getElementById("gameGrid");
+const message = document.getElementById("message");
+const levelTitle = document.getElementById("levelTitle");
+
+const tryOverlay = document.getElementById("tryOverlay");
+const winOverlay = document.getElementById("winOverlay");
+
+const tryAgainBtn = document.getElementById("tryAgainBtn");
+const playAgainBtn = document.getElementById("playAgainBtn");
+const shuffleBtn = document.getElementById("shuffleBtn");
+const backBtn = document.getElementById("backBtn");
+
+const level1Btn = document.getElementById("level1Btn");
+const level2Btn = document.getElementById("level2Btn");
+
+const ITEMS = [
+  { id: "rock", src: "./images/rock.png" },
+  { id: "leaf", src: "./images/leaf.png" },
+  { id: "cookie", src: "./images/cookie.png" },
+  { id: "feather", src: "./images/feather.png" },
+  { id: "sock", src: "./images/sock.png" },
+  { id: "blanket", src: "./images/blanket.png", win: true }
 ];
 
-const $ = id => document.getElementById(id);
+const CARD_BACK = "./images/Raven Seal.png";
 
-const startScreen = $("startScreen");
-const gameScreen  = $("gameScreen");
-const gameGrid    = $("gameGrid");
-const message     = $("message");
+let currentLevel = 1;
+let found = false;
 
-const tryOverlay  = $("tryOverlay");
-const winOverlay  = $("winOverlay");
-
-const tryAgainBtn = $("tryAgainBtn");
-const playAgainBtn = $("playAgainBtn");
-const shuffleBtn  = $("shuffleBtn");
-const backBtn     = $("backBtn");
-
-function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
-  }
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
 }
 
-function renderGrid(){
-  gameGrid.innerHTML="";
-  items.forEach(item=>{
-    const btn=document.createElement("button");
-    btn.innerHTML=`<img src="${item.img}" alt="${item.name}">`;
-    btn.onclick=()=>pick(item.isBlanket);
+function showGame() {
+  startScreen.hidden = true;
+  gameScreen.hidden = false;
+}
+
+function showStart() {
+  gameScreen.hidden = true;
+  startScreen.hidden = false;
+  tryOverlay.hidden = true;
+  winOverlay.hidden = true;
+}
+
+function startLevel1() {
+  found = false;
+  gameGrid.innerHTML = "";
+  levelTitle.textContent = "Level 1: Tap & Find";
+  message.textContent = "Where is Raven’s blanket?";
+
+  shuffle(ITEMS).forEach(item => {
+    const btn = document.createElement("button");
+    const img = document.createElement("img");
+    img.src = item.src;
+    btn.appendChild(img);
+
+    btn.onclick = () => {
+      if (item.win) {
+        winOverlay.hidden = false;
+      } else {
+        tryOverlay.hidden = false;
+      }
+    };
+
     gameGrid.appendChild(btn);
   });
 }
 
-function startGame(){
-  startScreen.hidden=true;
-  gameScreen.hidden=false;
-  shuffle(items);
-  renderGrid();
+function startLevel2() {
+  found = false;
+  gameGrid.innerHTML = "";
+  levelTitle.textContent = "Level 2: Flip the Cards";
+  message.textContent = "Flip a card. There’s no rush.";
+
+  shuffle(ITEMS).forEach(item => {
+    const card = document.createElement("button");
+    card.className = "flip-card";
+
+    const back = document.createElement("img");
+    back.src = CARD_BACK;
+    back.className = "card-back";
+
+    const front = document.createElement("img");
+    front.src = item.src;
+    front.className = "card-front";
+
+    card.append(back, front);
+
+    card.onclick = () => {
+      if (found || card.classList.contains("revealed")) return;
+      card.classList.add("revealed");
+
+      if (item.win) {
+        found = true;
+        winOverlay.hidden = false;
+        message.textContent = "You found Raven’s blanket!";
+      } else {
+        message.textContent = "That’s a cozy find. Let’s keep looking.";
+      }
+    };
+
+    gameGrid.appendChild(card);
+  });
 }
 
-function pick(correct){
-  if(correct){
-    winOverlay.hidden=false;
-  }else{
-    tryOverlay.hidden=false;
-  }
-}
-
-tryAgainBtn.onclick=()=>{
-  tryOverlay.hidden=true;
-  shuffle(items);
-  renderGrid();
+level1Btn.onclick = () => {
+  currentLevel = 1;
+  showGame();
+  startLevel1();
 };
 
-playAgainBtn.onclick=()=>{
-  winOverlay.hidden=true;
-  shuffle(items);
-  renderGrid();
+level2Btn.onclick = () => {
+  currentLevel = 2;
+  showGame();
+  startLevel2();
 };
 
-shuffleBtn.onclick=()=>{
-  shuffle(items);
-  renderGrid();
+shuffleBtn.onclick = () => {
+  currentLevel === 1 ? startLevel1() : startLevel2();
 };
 
-backBtn.onclick=()=>{
-  gameScreen.hidden=true;
-  startScreen.hidden=false;
+backBtn.onclick = showStart;
+
+tryAgainBtn.onclick = () => {
+  tryOverlay.hidden = true;
 };
 
-startScreen.onclick=(e)=>{
-  if(e.target.closest("button")) return;
-  startGame();
+playAgainBtn.onclick = () => {
+  winOverlay.hidden = true;
+  currentLevel === 1 ? startLevel1() : startLevel2();
 };
