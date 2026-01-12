@@ -10,85 +10,72 @@
 </head>
 
 <body>
+
   <!-- START SCREEN -->
   <section id="startScreen" class="screen screen-start" aria-label="Start Screen">
-    <div class="top-icons" aria-hidden="true">
-      <div class="icon-badge">🔈</div>
-      <div class="icon-badge">🎵</div>
-    </div>
 
     <div class="title-wrap">
       <h1 class="game-title">Raven’s Cozy Quest</h1>
-      <p class="game-subtitle">Help Raven find her blanket!</p>
+      <p class="game-subtitle">Help Raven find her blanket</p>
     </div>
 
-    <div class="start-hero">
-      <img class="start-raven-img" src="./images/start-raven.png" alt="Raven looking worried" />
-
-      <div class="bubble cloud">
-        <p class="bubble-title"><b>Welcome!</b></p>
-        <p>Oh no… Raven lost her favorite blanket.</p>
-        <p>Will you help her find it?</p>
-        <p class="bubble-hint">Tap anywhere to start ✨</p>
-      </div>
+    <!-- WELCOME MESSAGE -->
+    <div class="bubble cloud start-welcome">
+      <p><b>Welcome!</b></p>
+      <p>Oh no… Raven has lost her favorite blanket.</p>
+      <p>Will you help her find it?</p>
+      <p class="bubble-hint">Tap anywhere to start ✨</p>
     </div>
 
-    <div class="start-actions">
-      <button id="creditsBtn" class="small-btn" type="button">CREDITS</button>
+    <!-- RAVEN -->
+    <div class="start-raven">
+      <img
+        src="./images/start-raven.png"
+        alt="Raven looking worried"
+        class="start-raven-img"
+      />
     </div>
 
-    <div id="creditsPanel" class="credits" hidden>
-      <p><b>Credits</b></p>
-      <p>Made for kids (ages 3–8).</p>
-      <p>Gentle play. No timers. No wrong answers.</p>
-      <button id="closeCreditsBtn" class="small-btn" type="button">Close</button>
-    </div>
   </section>
 
   <!-- GAME SCREEN -->
   <main id="gameScreen" class="screen screen-game" hidden aria-label="Game Screen">
+
     <header class="game-header">
-      <h2>🎮 Help Raven Find Her Blanket</h2>
-      <p class="instructions">Tap a picture. If it’s the blanket, you win! (No rush.)</p>
+      <h2>Where is Raven’s blanket?</h2>
+      <p class="instructions">Tap a picture. There’s no rush.</p>
     </header>
 
-    <div id="message" class="message" aria-live="polite">Where is Raven’s blanket?</div>
+    <div id="message" class="message" aria-live="polite">
+      Where is Raven’s blanket?
+    </div>
 
-    <div class="grid" id="gameGrid" aria-label="Game choices"></div>
+    <div class="grid" id="gameGrid"></div>
 
     <div class="footer-actions">
-      <button id="shuffleBtn" class="small-btn" type="button">🔀 Mix Again</button>
-      <button id="backBtn" class="small-btn" type="button">⬅ Back</button>
+      <button id="shuffleBtn" class="small-btn">🔀 Mix Again</button>
+      <button id="backBtn" class="small-btn">⬅ Back</button>
     </div>
+
   </main>
 
-  <!-- TRY AGAIN OVERLAY (SHRUG RAVEN) -->
-  <div id="tryOverlay" class="overlay" hidden role="dialog" aria-label="Try again">
+  <!-- TRY AGAIN OVERLAY -->
+  <div id="tryOverlay" class="overlay" hidden>
     <div class="overlay-card">
-      <h3>Oops!</h3>
-      <p>That’s not the blanket. Try again 😊</p>
-
-      <div class="win-media">
-        <img class="win-gif" src="./images/raven-shrug.png" alt="Raven shrugging" />
-      </div>
-
-      <button id="tryAgainBtn" class="big-btn" type="button">Try Again</button>
-      <button id="closeTryBtn" class="small-btn" type="button">Close</button>
+      <h3>That’s okay</h3>
+      <p>That’s not the blanket. Try again 💛</p>
+      <img class="overlay-img" src="./images/raven-shrug.png" alt="Raven shrugging" />
+      <button id="tryAgainBtn" class="big-btn">Try Again</button>
     </div>
   </div>
 
-  <!-- WIN OVERLAY (DANCING RAVEN) -->
-  <div id="winOverlay" class="overlay" hidden role="dialog" aria-label="You win">
+  <!-- WIN OVERLAY -->
+  <div id="winOverlay" class="overlay" hidden>
     <div class="overlay-card">
-      <h3>🎉 Great job!</h3>
-      <p>You found Raven’s blanket!</p>
-
-      <div class="win-media">
-        <img class="win-gif" src="./images/raven-dance.gif" alt="Raven dancing happily" />
-      </div>
-
-      <button id="playAgainBtn" class="big-btn" type="button">Play Again</button>
-      <button id="closeWinBtn" class="small-btn" type="button">Close</button>
+      <h3>You did it!</h3>
+      <p>You found Raven’s blanket 🎉</p>
+      <img class="overlay-img" src="./images/raven-dance.gif" alt="Raven dancing" />
+      <button id="playAgainBtn" class="big-btn">Play Again</button>
     </div>
   </div>
 
