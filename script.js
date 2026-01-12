@@ -15,15 +15,23 @@ const backBtn = document.getElementById("backBtn");
 const level1Btn = document.getElementById("level1Btn");
 const level2Btn = document.getElementById("level2Btn");
 
+/*
+  ✅ Update these filenames if yours are different.
+  GitHub Pages is case-sensitive!
+*/
 const ITEMS = [
-  { id: "rock", src: "./images/rock.png" },
-  { id: "leaf", src: "./images/leaf.png" },
-  { id: "cookie", src: "./images/cookie.png" },
-  { id: "feather", src: "./images/feather.png" },
-  { id: "sock", src: "./images/sock.png" },
-  { id: "blanket", src: "./images/blanket.png", win: true }
+  { id: "rock",    src: "./images/rock.png",    alt: "A rock" },
+  { id: "leaf",    src: "./images/leaf.png",    alt: "A leaf" },
+  { id: "cookie",  src: "./images/cookie.png",  alt: "A cookie" },
+  { id: "feather", src: "./images/feather.png", alt: "A feather" },
+  { id: "sock",    src: "./images/sock.png",    alt: "A sock" },
+  { id: "blanket", src: "./images/blanket.png", alt: "Raven's blanket", win: true },
 ];
 
+/*
+  ✅ IMPORTANT: this path must match your actual file name exactly.
+  If your file is named "raven-seal.png", change it here.
+*/
 const CARD_BACK = "./images/Raven Seal.png";
 
 let currentLevel = 1;
@@ -49,56 +57,67 @@ function showStart() {
   hideOverlays();
 }
 
-/* LEVEL 1 */
+/* LEVEL 1: Tap & Find */
 function startLevel1() {
   found = false;
   hideOverlays();
   gameGrid.innerHTML = "";
+
   levelTitle.textContent = "Level 1: Tap & Find";
   message.textContent = "Where is Raven’s blanket?";
 
   shuffle(ITEMS).forEach(item => {
     const btn = document.createElement("button");
+    btn.type = "button";
+
     const img = document.createElement("img");
     img.src = item.src;
+    img.alt = item.alt;
     btn.appendChild(img);
 
-    btn.onclick = () => {
+    btn.addEventListener("click", () => {
       if (item.win) {
         winOverlay.hidden = false;
       } else {
         tryOverlay.hidden = false;
       }
-    };
+    });
 
     gameGrid.appendChild(btn);
   });
 }
 
-/* LEVEL 2 */
+/* LEVEL 2: Flip the Cards */
 function startLevel2() {
   found = false;
   hideOverlays();
   gameGrid.innerHTML = "";
+
   levelTitle.textContent = "Level 2: Flip the Cards";
   message.textContent = "Flip a card. There’s no rush.";
 
   shuffle(ITEMS).forEach(item => {
     const card = document.createElement("button");
+    card.type = "button";
     card.className = "flip-card";
+    card.setAttribute("aria-label", "Flip card");
 
     const back = document.createElement("img");
     back.src = CARD_BACK;
+    back.alt = "Raven logo";
     back.className = "card-back";
 
     const front = document.createElement("img");
     front.src = item.src;
+    front.alt = item.alt;
     front.className = "card-front";
 
     card.append(back, front);
 
-    card.onclick = () => {
-      if (found || card.classList.contains("revealed")) return;
+    card.addEventListener("click", () => {
+      if (found) return;
+      if (card.classList.contains("revealed")) return;
+
       card.classList.add("revealed");
 
       if (item.win) {
@@ -108,36 +127,38 @@ function startLevel2() {
       } else {
         message.textContent = "That’s a cozy find. Let’s keep looking.";
       }
-    };
+    });
 
     gameGrid.appendChild(card);
   });
 }
 
 /* EVENTS */
-level1Btn.onclick = () => {
+level1Btn.addEventListener("click", () => {
   currentLevel = 1;
   showGame();
   startLevel1();
-};
+});
 
-level2Btn.onclick = () => {
+level2Btn.addEventListener("click", () => {
   currentLevel = 2;
   showGame();
   startLevel2();
-};
+});
 
-shuffleBtn.onclick = () => {
+shuffleBtn.addEventListener("click", () => {
   currentLevel === 1 ? startLevel1() : startLevel2();
-};
+});
 
-backBtn.onclick = showStart;
+backBtn.addEventListener("click", () => {
+  showStart();
+});
 
-tryAgainBtn.onclick = () => {
+tryAgainBtn.addEventListener("click", () => {
   tryOverlay.hidden = true;
-};
+});
 
-playAgainBtn.onclick = () => {
+playAgainBtn.addEventListener("click", () => {
   winOverlay.hidden = true;
   currentLevel === 1 ? startLevel1() : startLevel2();
-};
+});
