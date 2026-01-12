@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Help Raven Find Her Blanket</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:," />
 </head>
 
 <body>
@@ -22,15 +23,17 @@
     </div>
 
     <div class="start-hero">
-      <div class="hero-bubble">
-        <div class="bubble cloud">
-          Tap <b>START</b> to play!
-        </div>
+      <img class="start-raven-img" src="./images/start-raven.png" alt="Raven looking worried" />
+
+      <div class="bubble cloud">
+        <p class="bubble-title"><b>Welcome!</b></p>
+        <p>Oh no… Raven lost her favorite blanket.</p>
+        <p>Will you help her find it?</p>
+        <p class="bubble-hint">Tap anywhere to start ✨</p>
       </div>
     </div>
 
     <div class="start-actions">
-      <button id="startBtn" class="big-btn" type="button">START</button>
       <button id="creditsBtn" class="small-btn" type="button">CREDITS</button>
     </div>
 
@@ -49,11 +52,7 @@
       <p class="instructions">Tap a picture. If it’s the blanket, you win! (No rush.)</p>
     </header>
 
-    <!-- TRY AGAIN RAVEN (shrug) + message -->
-    <div class="feedback">
-      <img id="ravenMood" class="raven-mood" src="./images/raven-shrug.png" alt="Raven shrugging" />
-      <div id="message" class="message" aria-live="polite">Where is Raven’s blanket?</div>
-    </div>
+    <div id="message" class="message" aria-live="polite">Where is Raven’s blanket?</div>
 
     <div class="grid" id="gameGrid" aria-label="Game choices"></div>
 
@@ -63,7 +62,22 @@
     </div>
   </main>
 
-  <!-- WIN OVERLAY (ONLY DANCING RAVEN) -->
+  <!-- TRY AGAIN OVERLAY (SHRUG RAVEN) -->
+  <div id="tryOverlay" class="overlay" hidden role="dialog" aria-label="Try again">
+    <div class="overlay-card">
+      <h3>Oops!</h3>
+      <p>That’s not the blanket. Try again 😊</p>
+
+      <div class="win-media">
+        <img class="win-gif" src="./images/raven-shrug.png" alt="Raven shrugging" />
+      </div>
+
+      <button id="tryAgainBtn" class="big-btn" type="button">Try Again</button>
+      <button id="closeTryBtn" class="small-btn" type="button">Close</button>
+    </div>
+  </div>
+
+  <!-- WIN OVERLAY (DANCING RAVEN) -->
   <div id="winOverlay" class="overlay" hidden role="dialog" aria-label="You win">
     <div class="overlay-card">
       <h3>🎉 Great job!</h3>
