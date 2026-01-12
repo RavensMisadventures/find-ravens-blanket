@@ -1,180 +1,127 @@
-:root{
-  --bg-dark:#1e3448;
-  --bg-mid:#2f556e;
-  --card:#f7f4ef;
-  --soft:#f3e6b3;
-  --win:#cfe8dc;
-  --text:#1b2a36;
-  --shadow: rgba(0,0,0,.18);
-}
-
-[hidden]{ display:none !important; }
-
-*{ box-sizing:border-box; }
-
-body{
-  margin:0;
+/* GENERAL */
+body {
+  margin: 0;
   font-family: system-ui, sans-serif;
-  background: linear-gradient(180deg, var(--bg-mid), var(--bg-dark));
-  color: var(--text);
-  min-height:100vh;
+  background: #2f5870;
+  color: #fff;
 }
 
-.screen{
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
+.screen {
+  min-height: 100vh;
+  padding: 24px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
 
 /* START SCREEN */
-.screen-start{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap: 16px;
-  justify-content:center;
-  min-height:100vh;
+.title-wrap {
+  margin-bottom: 16px;
 }
 
-.title-wrap{
-  text-align:center;
-  color: #eef4f6;
+.game-title {
+  font-size: 2.2rem;
 }
 
-.game-title{
-  font-size: 42px;
-  margin:0;
-}
-
-.game-subtitle{
-  opacity:.9;
-}
-
-.start-welcome{
-  background: var(--card);
-  padding: 18px 22px;
-  border-radius: 24px;
-  text-align:center;
-  max-width: 620px;
-  font-size: 18px;
-  box-shadow: 0 10px 22px var(--shadow);
-}
-
-.bubble-hint{
-  opacity:.8;
-  margin-top:6px;
-}
-
-.start-raven{
-  display:flex;
-  justify-content:center;
-}
-
-.start-raven-img{
-  width: 360px;
-  max-width: 80vw;
-  animation: raven-float 3.5s ease-in-out infinite;
-  filter: drop-shadow(0 16px 28px rgba(0,0,0,.35));
-}
-
-/* gentle animation – safe */
-@keyframes raven-float{
-  0%{ transform: translateY(0); }
-  50%{ transform: translateY(-8px); }
-  100%{ transform: translateY(0); }
-}
-
-/* GAME SCREEN */
-.screen-game{
-  color:#eef4f6;
-}
-
-.game-header{
-  text-align:center;
-}
-
-.message{
-  background: var(--card);
-  color: var(--text);
-  padding: 14px;
-  border-radius: 18px;
-  text-align:center;
-  margin: 14px auto;
-  max-width: 640px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  max-width: 640px;
+.bubble {
+  background: rgba(255,255,255,0.15);
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 420px;
   margin: 0 auto;
 }
 
-@media (max-width: 700px){
-  .grid{ grid-template-columns: repeat(2, 1fr); }
+.level-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
 }
 
-.grid button{
-  background: var(--card);
-  border:none;
+/* BUTTONS */
+.big-btn, .small-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.big-btn {
+  background: #ffdca8;
+  color: #333;
+}
+
+.small-btn {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+/* GAME GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.grid button {
+  border: none;
   border-radius: 18px;
-  padding: 10px;
-  cursor:pointer;
-  box-shadow: 0 8px 18px var(--shadow);
+  padding: 0;
+  background: #f6f2ee;
+  cursor: pointer;
 }
 
-.grid img{
-  width:100%;
-  height:120px;
-  object-fit:contain;
+/* LEVEL 2 FLIP CARDS */
+.flip-card {
+  position: relative;
+  overflow: hidden;
 }
 
-.footer-actions{
-  display:flex;
-  justify-content:center;
-  gap: 10px;
-  margin-top: 16px;
+.flip-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.6s ease;
 }
 
-.small-btn{
-  background:#e8f0f2;
-  border:none;
-  border-radius:14px;
-  padding:10px 14px;
-  font-weight:600;
-  cursor:pointer;
+.card-front {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
 }
 
-.big-btn{
-  background:#7fa6b8;
-  color:#10222f;
-  border:none;
-  border-radius:18px;
-  padding:14px 22px;
-  font-size:20px;
-  font-weight:700;
-  cursor:pointer;
+.card-back {
+  opacity: 1;
+}
+
+.flip-card.revealed .card-front {
+  opacity: 1;
+}
+
+.flip-card.revealed .card-back {
+  opacity: 0;
 }
 
 /* OVERLAYS */
-.overlay{
-  position:fixed;
-  inset:0;
-  background: rgba(0,0,0,.45);
-  display:grid;
-  place-items:center;
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.overlay-card{
-  background: var(--card);
-  border-radius:24px;
-  padding:20px;
-  text-align:center;
-  max-width: 420px;
-}
-
-.overlay-img{
-  width: 220px;
-  margin: 10px auto;
+.overlay-card {
+  background: #fff;
+  color: #333;
+  padding: 24px;
+  border-radius: 20px;
+  max-width: 300px;
 }
