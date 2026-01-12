@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- REPO: find-ravens-blanket -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -11,75 +10,73 @@
 
 <body>
 
-  <!-- START SCREEN -->
-  <section id="startScreen" class="screen screen-start" aria-label="Start Screen">
+<!-- START SCREEN -->
+<section id="startScreen" class="screen screen-start">
 
-    <div class="title-wrap">
-      <h1 class="game-title">Raven’s Cozy Quest</h1>
-      <p class="game-subtitle">Help Raven find her blanket</p>
-    </div>
+  <div class="title-wrap">
+    <h1 class="game-title">Raven’s Cozy Quest</h1>
+    <p class="game-subtitle">Help Raven find her blanket</p>
+  </div>
 
-    <div class="bubble cloud start-welcome">
-      <p><b>Welcome!</b></p>
-      <p>Oh no… Raven has lost her favorite blanket.</p>
-      <p>Will you help her find it?</p>
-      <p class="bubble-hint">Pick a level. There’s no rush ✨</p>
+  <div class="bubble cloud start-welcome">
+    <p><strong>Welcome!</strong></p>
+    <p>Oh no… Raven has lost her favorite blanket.</p>
+    <p>Will you help her find it?</p>
+    <p class="bubble-hint">Pick a level. There’s no rush ✨</p>
 
-      <div class="level-buttons">
-        <button id="level1Btn" class="big-btn">Level 1: Tap & Find</button>
-        <button id="level2Btn" class="big-btn">Level 2: Flip the Cards</button>
-      </div>
-    </div>
-
-    <div class="start-raven">
-      <img src="./images/start-raven.png"
-           alt="Raven looking worried"
-           class="start-raven-img" />
-    </div>
-
-  </section>
-
-  <!-- GAME SCREEN -->
-  <main id="gameScreen" class="screen screen-game" hidden aria-label="Game Screen">
-
-    <header class="game-header">
-      <h2 id="levelTitle">Where is Raven’s blanket?</h2>
-      <p class="instructions">Tap a picture. There’s no rush.</p>
-    </header>
-
-    <div id="message" class="message" aria-live="polite">
-      Where is Raven’s blanket?
-    </div>
-
-    <div class="grid" id="gameGrid"></div>
-
-    <div class="footer-actions">
-      <button id="shuffleBtn" class="small-btn">🔀 Mix Again</button>
-      <button id="backBtn" class="small-btn">⬅ Back</button>
-    </div>
-
-  </main>
-
-  <!-- TRY AGAIN OVERLAY (Level 1 only) -->
-  <div id="tryOverlay" class="overlay" hidden>
-    <div class="overlay-card">
-      <h3>That’s okay</h3>
-      <p>That’s not the blanket. Try again 💛</p>
-      <img src="./images/raven-shrug.png" alt="Raven shrugging" />
-      <button id="tryAgainBtn" class="big-btn">Try Again</button>
+    <div class="level-buttons">
+      <button id="level1Btn" class="big-btn">Level 1: Tap & Find</button>
+      <button id="level2Btn" class="big-btn">Level 2: Flip the Cards</button>
     </div>
   </div>
 
-  <!-- WIN OVERLAY -->
-  <div id="winOverlay" class="overlay" hidden>
-    <div class="overlay-card">
-      <h3>You did it!</h3>
-      <p>You found Raven’s blanket 🎉</p>
-      <img src="./images/raven-dance.gif" alt="Raven dancing" />
-      <button id="playAgainBtn" class="big-btn">Play Again</button>
-    </div>
+  <div class="start-raven">
+    <img src="./images/start-raven.png" alt="Raven looking worried" />
   </div>
 
-  <script src="script.js" defer></script>
+</section>
+
+<!-- GAME SCREEN -->
+<main id="gameScreen" class="screen screen-game" hidden>
+
+  <header class="game-header">
+    <h2 id="levelTitle">Where is Raven’s blanket?</h2>
+    <p class="instructions">Tap a picture. There’s no rush.</p>
+  </header>
+
+  <div id="message" class="message" aria-live="polite">
+    Where is Raven’s blanket?
+  </div>
+
+  <div class="grid" id="gameGrid"></div>
+
+  <div class="footer-actions">
+    <button id="shuffleBtn" class="small-btn">🔀 Mix Again</button>
+    <button id="backBtn" class="small-btn">⬅ Back</button>
+  </div>
+
+</main>
+
+<!-- TRY AGAIN OVERLAY (LEVEL 1 ONLY) -->
+<div id="tryOverlay" class="overlay" hidden>
+  <div class="overlay-card">
+    <h3>That’s okay</h3>
+    <p>That’s not the blanket. Try again 💛</p>
+    <img src="./images/raven-shrug.png" alt="Raven shrugging" />
+    <button id="tryAgainBtn" class="big-btn">Try Again</button>
+  </div>
+</div>
+
+<!-- WIN OVERLAY -->
+<div id="winOverlay" class="overlay" hidden>
+  <div class="overlay-card">
+    <h3>You did it!</h3>
+    <p>You found Raven’s blanket 🎉</p>
+    <img src="./images/raven-dance.gif" alt="Raven dancing" />
+    <button id="playAgainBtn" class="big-btn">Play Again</button>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
 </body>
 </html>
