@@ -1,10 +1,10 @@
 const items = [
-  { name: "Feather", img: "images/feather.png", isBlanket: false },
-  { name: "Leaf",    img: "images/leaf.png",    isBlanket: false },
-  { name: "Blanket", img: "images/blanket.png", isBlanket: true  },
-  { name: "Rock",    img: "images/rock.png",    isBlanket: false },
-  { name: "Sock",    img: "images/sock.png",    isBlanket: false },
-  { name: "Cookie",  img: "images/cookie.png",  isBlanket: false }
+  { name: "Feather", img: "./images/feather.png", isBlanket: false },
+  { name: "Leaf",    img: "./images/leaf.png",    isBlanket: false },
+  { name: "Blanket", img: "./images/blanket.png", isBlanket: true  },
+  { name: "Rock",    img: "./images/rock.png",    isBlanket: false },
+  { name: "Sock",    img: "./images/sock.png",    isBlanket: false },
+  { name: "Cookie",  img: "./images/cookie.png",  isBlanket: false }
 ];
 
 function $(id){ return document.getElementById(id); }
@@ -13,14 +13,17 @@ const startScreen  = $("startScreen");
 const gameScreen   = $("gameScreen");
 const gameGrid     = $("gameGrid");
 const message      = $("message");
-const ravenMood    = $("ravenMood");
-const winOverlay   = $("winOverlay");
 
-const startBtn     = $("startBtn");
+const winOverlay   = $("winOverlay");
+const tryOverlay   = $("tryOverlay");
+
 const backBtn      = $("backBtn");
 const shuffleBtn   = $("shuffleBtn");
 const playAgainBtn = $("playAgainBtn");
 const closeWinBtn  = $("closeWinBtn");
+
+const tryAgainBtn  = $("tryAgainBtn");
+const closeTryBtn  = $("closeTryBtn");
 
 const creditsBtn      = $("creditsBtn");
 const creditsPanel    = $("creditsPanel");
@@ -33,24 +36,19 @@ function shuffle(arr){
   }
 }
 
-function setMessage(text, kind){
-  message.textContent = text;
-
-  if (kind === "win"){
-    message.style.background = "#d1fae5";
-  } else {
-    message.style.background = "#fff3cd";
-    // show shrug Raven on try again (and also on start)
-    if (ravenMood) ravenMood.src = "./images/raven-shrug.png";
-  }
+function setMessage(text){
+  if (message) message.textContent = text;
 }
 
 function renderGrid(){
+  if (!gameGrid) return;
+
   gameGrid.innerHTML = "";
   items.forEach(item => {
     const btn = document.createElement("button");
+    btn.type = "button";
     btn.innerHTML = `
-      <img src="./${item.img}" alt="${item.name}">
+      <img src="${item.img}" alt="${item.name}">
       <span>${item.name}</span>
     `;
     btn.addEventListener("click", () => tryItem(item.isBlanket));
@@ -58,43 +56,77 @@ function renderGrid(){
   });
 }
 
-function tryItem(isBlanket){
-  if (isBlanket){
-    setMessage("🎉 You found Raven’s blanket! Great job!", "win");
-    winOverlay.hidden = false;
-    return; // stop shuffling on win
-  }
-
-  setMessage("That’s not the blanket. That’s okay! Try again 😊", "try");
-  shuffle(items);
-  renderGrid();
+function showStart(){
+  startScreen.hidden = false;
+  gameScreen.hidden = true;
+  if (winOverlay) winOverlay.hidden = true;
+  if (tryOverlay) tryOverlay.hidden = true;
 }
 
 function startGame(){
   startScreen.hidden = true;
   gameScreen.hidden = false;
-  winOverlay.hidden = true;
+  if (winOverlay) winOverlay.hidden = true;
+  if (tryOverlay) tryOverlay.hidden = true;
 
-  setMessage("Where is Raven’s blanket?", "try");
+  setMessage("Where is Raven’s blanket?");
   shuffle(items);
   renderGrid();
 }
 
 function goBack(){
-  gameScreen.hidden = true;
-  startScreen.hidden = false;
-  winOverlay.hidden = true;
+  showStart();
 }
 
-function resetGame(){
-  winOverlay.hidden = true;
-  setMessage("Where is Raven’s blanket?", "try");
+function showTryOverlay(){
+  if (tryOverlay) tryOverlay.hidden = false;
+}
+
+function hideTryOverlay(){
+  if (tryOverlay) tryOverlay.hidden = true;
+}
+
+function showWinOverlay(){
+  if (winOverlay) winOverlay.hidden = false;
+}
+
+function hideWinOverlay(){
+  if (winOverlay) winOverlay.hidden = true;
+}
+
+function tryItem(isBlanket){
+  if (isBlanket){
+    showWinOverlay();
+    return;
+  }
+  showTryOverlay();
+}
+
+function doTryAgain(){
+  hideTryOverlay();
+  setMessage("Where is Raven’s blanket?");
   shuffle(items);
   renderGrid();
 }
 
+function resetGame(){
+  hideWinOverlay();
+  setMessage("Where is Raven’s blanket?");
+  shuffle(items);
+  renderGrid();
+}
+
+function isClickOnInteractive(el){
+  return !!el.closest("button, a, input, textarea, select, [role='button']");
+}
+
 window.addEventListener("DOMContentLoaded", () => {
-  startBtn?.addEventListener("click", startGame);
+  // Click anywhere on start screen to begin (but not on buttons)
+  startScreen?.addEventListener("click", (e) => {
+    if (isClickOnInteractive(e.target)) return;
+    startGame();
+  });
+
   backBtn?.addEventListener("click", goBack);
 
   shuffleBtn?.addEventListener("click", () => {
@@ -111,9 +143,33 @@ window.addEventListener("DOMContentLoaded", () => {
   closeWinBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    winOverlay.hidden = true;
+    hideWinOverlay();
   });
 
-  creditsBtn?.addEventListener("click", () => { creditsPanel.hidden = false; });
-  closeCreditsBtn?.addEventListener("click", () => { creditsPanel.hidden = true; });
+  tryAgainBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    doTryAgain();
+  });
+
+  closeTryBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    hideTryOverlay();
+  });
+
+  creditsBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (creditsPanel) creditsPanel.hidden = false;
+  });
+
+  closeCreditsBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (creditsPanel) creditsPanel.hidden = true;
+  });
+
+  // Start clean on load
+  showStart();
 });
