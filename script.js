@@ -30,7 +30,12 @@ let currentLevel = 1;
 let found = false;
 
 function shuffle(arr) {
-  return arr.sort(() => Math.random() - 0.5);
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function hideOverlays() {
+  tryOverlay.hidden = true;
+  winOverlay.hidden = true;
 }
 
 function showGame() {
@@ -41,12 +46,13 @@ function showGame() {
 function showStart() {
   gameScreen.hidden = true;
   startScreen.hidden = false;
-  tryOverlay.hidden = true;
-  winOverlay.hidden = true;
+  hideOverlays();
 }
 
+/* LEVEL 1 */
 function startLevel1() {
   found = false;
+  hideOverlays();
   gameGrid.innerHTML = "";
   levelTitle.textContent = "Level 1: Tap & Find";
   message.textContent = "Where is Raven’s blanket?";
@@ -69,8 +75,10 @@ function startLevel1() {
   });
 }
 
+/* LEVEL 2 */
 function startLevel2() {
   found = false;
+  hideOverlays();
   gameGrid.innerHTML = "";
   levelTitle.textContent = "Level 2: Flip the Cards";
   message.textContent = "Flip a card. There’s no rush.";
@@ -95,8 +103,8 @@ function startLevel2() {
 
       if (item.win) {
         found = true;
-        winOverlay.hidden = false;
         message.textContent = "You found Raven’s blanket!";
+        winOverlay.hidden = false;
       } else {
         message.textContent = "That’s a cozy find. Let’s keep looking.";
       }
@@ -106,6 +114,7 @@ function startLevel2() {
   });
 }
 
+/* EVENTS */
 level1Btn.onclick = () => {
   currentLevel = 1;
   showGame();
