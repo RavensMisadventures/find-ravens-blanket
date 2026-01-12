@@ -19,21 +19,22 @@
       <p class="game-subtitle">Help Raven find her blanket</p>
     </div>
 
-    <!-- WELCOME MESSAGE -->
     <div class="bubble cloud start-welcome">
       <p><b>Welcome!</b></p>
       <p>Oh no… Raven has lost her favorite blanket.</p>
       <p>Will you help her find it?</p>
-      <p class="bubble-hint">Tap anywhere to start ✨</p>
+      <p class="bubble-hint">Pick a level. There’s no rush ✨</p>
+
+      <div class="level-buttons">
+        <button id="level1Btn" class="big-btn">Level 1: Tap & Find</button>
+        <button id="level2Btn" class="big-btn">Level 2: Flip the Cards</button>
+      </div>
     </div>
 
-    <!-- RAVEN -->
     <div class="start-raven">
-      <img
-        src="./images/start-raven.png"
-        alt="Raven looking worried"
-        class="start-raven-img"
-      />
+      <img src="./images/start-raven.png"
+           alt="Raven looking worried"
+           class="start-raven-img" />
     </div>
 
   </section>
@@ -42,7 +43,7 @@
   <main id="gameScreen" class="screen screen-game" hidden aria-label="Game Screen">
 
     <header class="game-header">
-      <h2>Where is Raven’s blanket?</h2>
+      <h2 id="levelTitle">Where is Raven’s blanket?</h2>
       <p class="instructions">Tap a picture. There’s no rush.</p>
     </header>
 
@@ -59,12 +60,12 @@
 
   </main>
 
-  <!-- TRY AGAIN OVERLAY -->
+  <!-- TRY AGAIN OVERLAY (Level 1 only) -->
   <div id="tryOverlay" class="overlay" hidden>
     <div class="overlay-card">
       <h3>That’s okay</h3>
       <p>That’s not the blanket. Try again 💛</p>
-      <img class="overlay-img" src="./images/raven-shrug.png" alt="Raven shrugging" />
+      <img src="./images/raven-shrug.png" alt="Raven shrugging" />
       <button id="tryAgainBtn" class="big-btn">Try Again</button>
     </div>
   </div>
@@ -74,7 +75,7 @@
     <div class="overlay-card">
       <h3>You did it!</h3>
       <p>You found Raven’s blanket 🎉</p>
-      <img class="overlay-img" src="./images/raven-dance.gif" alt="Raven dancing" />
+      <img src="./images/raven-dance.gif" alt="Raven dancing" />
       <button id="playAgainBtn" class="big-btn">Play Again</button>
     </div>
   </div>
