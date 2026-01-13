@@ -57,19 +57,17 @@
 
   </main>
 
-  <!-- TRY AGAIN OVERLAY (Level 1 only) -->
-  <div id="tryOverlay" class="overlay" hidden>
-    <div class="overlay-card">
-      <h3>That’s okay</h3>
-      <p>That’s not the blanket. Try again 💛</p>
-      <img class="overlay-img" src="./images/raven-shrug.png" alt="Raven shrugging" />
+  <!-- TRY AGAIN OVERLAY (LEVEL 1 ONLY) -->
+  <div id="tryOverlay" class="overlay" hidden aria-modal="true" role="dialog">
+    <div class="overlay-card overlay-try">
+      <img class="overlay-img overlay-img-try" src="./images/raven-shrug.png" alt="Try again with Raven" />
       <button id="tryAgainBtn" class="big-btn" type="button">Try Again</button>
     </div>
   </div>
 
   <!-- WIN OVERLAY -->
-  <div id="winOverlay" class="overlay" hidden>
-    <div class="overlay-card">
+  <div id="winOverlay" class="overlay" hidden aria-modal="true" role="dialog">
+    <div class="overlay-card overlay-win">
       <h3>You did it!</h3>
       <p>You found Raven’s blanket 🎉</p>
       <img class="overlay-img" src="./images/raven-dance.gif" alt="Raven dancing" />
