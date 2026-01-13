@@ -15,10 +15,7 @@ const backBtn = document.getElementById("backBtn");
 const level1Btn = document.getElementById("level1Btn");
 const level2Btn = document.getElementById("level2Btn");
 
-/*
-  ✅ Update these filenames if yours are different.
-  GitHub Pages is case-sensitive!
-*/
+/* Update filenames here if yours differ (GitHub is case-sensitive) */
 const ITEMS = [
   { id: "rock",    src: "./images/rock.png",    alt: "A rock" },
   { id: "leaf",    src: "./images/leaf.png",    alt: "A leaf" },
@@ -28,10 +25,7 @@ const ITEMS = [
   { id: "blanket", src: "./images/blanket.png", alt: "Raven's blanket", win: true },
 ];
 
-/*
-  ✅ IMPORTANT: this path must match your actual file name exactly.
-  If your file is named "raven-seal.png", change it here.
-*/
+/* IMPORTANT: match this to your actual file name exactly */
 const CARD_BACK = "./images/Raven Seal.png";
 
 let currentLevel = 1;
@@ -57,7 +51,7 @@ function showStart() {
   hideOverlays();
 }
 
-/* LEVEL 1: Tap & Find */
+/* LEVEL 1 */
 function startLevel1() {
   found = false;
   hideOverlays();
@@ -73,6 +67,7 @@ function startLevel1() {
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.alt;
+
     btn.appendChild(img);
 
     btn.addEventListener("click", () => {
@@ -87,7 +82,7 @@ function startLevel1() {
   });
 }
 
-/* LEVEL 2: Flip the Cards */
+/* LEVEL 2 */
 function startLevel2() {
   found = false;
   hideOverlays();
@@ -102,17 +97,21 @@ function startLevel2() {
     card.className = "flip-card";
     card.setAttribute("aria-label", "Flip card");
 
-    const back = document.createElement("img");
-    back.src = CARD_BACK;
-    back.alt = "Raven logo";
-    back.className = "card-back";
+    const backWrap = document.createElement("div");
+    backWrap.className = "card-back";
+    const backImg = document.createElement("img");
+    backImg.src = CARD_BACK;
+    backImg.alt = "Raven logo";
+    backWrap.appendChild(backImg);
 
-    const front = document.createElement("img");
-    front.src = item.src;
-    front.alt = item.alt;
-    front.className = "card-front";
+    const frontWrap = document.createElement("div");
+    frontWrap.className = "card-front";
+    const frontImg = document.createElement("img");
+    frontImg.src = item.src;
+    frontImg.alt = item.alt;
+    frontWrap.appendChild(frontImg);
 
-    card.append(back, front);
+    card.append(backWrap, frontWrap);
 
     card.addEventListener("click", () => {
       if (found) return;
